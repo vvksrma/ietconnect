@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+# Backend
+.env
+
+# Frontend (inside the 'client' directory)
+/client/node_modules/
+/client/build/
+/client/.env
+
+# Logs and runtime data
+*.log
+npm-debug.log*
+
+# Editor specific files
+.vscode/
+.idea/
