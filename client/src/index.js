@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Upload from './components/Upload';
+import Download from './components/Download';
+import ComboBox from './components/Autocomplete';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <Upload />
+    <Download />
+    <ComboBox />
   </React.StrictMode>
 );
 
