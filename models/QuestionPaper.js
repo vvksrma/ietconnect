@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Branch = require('./Branch');
 
 const questionPaperSchema = new mongoose.Schema({
-    branch: {
-        type: Branch.schema,
-        required: true
-    },
+    // branch: {
+    //     type: Branch.schema,
+    //     required: true
+    // },
     semester: {
         type: Number,
         required: true,

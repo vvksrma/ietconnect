@@ -1,38 +1,47 @@
-// client/src/components/Download.js
-import React, { useState, useEffect } from 'react';
-import { getPYQPapers } from '../services/api';
+import React, { useState } from 'react';
 
-const Download = () => {
-    const [papers, setPapers] = useState([]);
-
-    useEffect(() => {
-        const fetchPapers = async () => {
-            try {
-                const response = await getPYQPapers();
-                setPapers(response.data);
-            } catch (error) {
-                console.error('Error fetching papers:', error);
-            }
+class Download extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            paperId: ''
         };
+    }
 
-        fetchPapers();
-    }, []);
+    handleInputChange = (event) => {
+        this.setState({ paperId: event.target.value });
+    }
 
-    return (
-        <div>
-            <h2>Download PYQ Papers</h2>
-            <ul>
-                {papers.map((paper) => (
-                    <li key={paper._id}>
-                        {paper.fileName}{' '}
-                        <a href={`http://localhost:5000/${paper.filePath}`} download>
-                            Download
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+    downloadPaper = async () => {
+        const { paperId } = this.state;
+        try {
+            const response = await fetch(`/api/papers/download/${paperId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'paper.pdf'); // or any other extension
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <input type="text" value={this.state.paperId} onChange={this.handleInputChange} />
+                <button onClick={this.downloadPaper}>
+                    Download Paper
+                </button>
+            </div>
+        );
+    }
+}
 
 export default Download;

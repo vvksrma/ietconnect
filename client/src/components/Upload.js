@@ -1,6 +1,7 @@
 // client/src/components/Upload.js
 import React, { useState } from 'react';
 import { uploadPYQPaper } from '../services/api';
+import { Autocomplete, Button } from '@mui/material';
 
 const Upload = () => {
     const [file, setFile] = useState(null);
@@ -37,7 +38,7 @@ const Upload = () => {
             <input type="text" placeholder="Enter the subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
             <input type="text" placeholder="Enter the branch" value={branch} onChange={(e) => setBranch(e.target.value)} />
             <input type="text" placeholder="Enter the semester" value={semester} onChange={(e) => setSemester(e.target.value)} />
-            <button onClick={handleUpload}>Upload</button>
+            <Button onClick={handleUpload} variant="contained">Submit</Button>
         </div>
     );
 };
